@@ -15,5 +15,35 @@ package frc.robot;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
+    public static final double kControllerDeadZone = 0.15;
+    public static final double kControllerDeadZoneSmall = 0.05;
+  }
+  public static class DriveConstants {
+    //CAN Devices
+    public static int kFrontLeftMotor = 1;
+    public static int kFrontRightMotor = 2;
+    public static int kBackLeftMotor = 3;
+    public static int kBackRightMotor = 4;
+    public static int kPigeon2 = 5;
+  }
+  public static class ArmConstants {
+    //CAN Devices
+    public static int kUpArmMotor = 10;
+    //DIO Inputs
+    public static int kUpArmEncoderChannel = 0;
+    //PCM Devices
+    public static int kLowArmSolenoidRetractChannel = 0;
+    public static int kLowArmSolenoidExtendChannel = 1;
+    //Arm Positions
+    public static double kPickupSpot = 0.00;
+    public static double kScoreSpot = 0.00;
+    public static double kStowedSpot = 0.00;
+    public static double kFloorSpot = 0.00; 
+  }
+  public static class PickupConstants {
+    //PCM Devices
+    public static int kClawSolenoidRetractChannel = 2;
+    public static int kClawSolenoidExtendChannel = 3;
   }
 }
