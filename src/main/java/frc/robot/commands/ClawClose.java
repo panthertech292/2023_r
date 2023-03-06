@@ -19,12 +19,13 @@ public class ClawClose extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    PickupSub.setClawCylinderRetracted();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    PickupSub.setClawCylinderRetracted();
   }
 
   // Called once the command ends or is interrupted.

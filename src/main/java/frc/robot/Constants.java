@@ -25,7 +25,7 @@ public final class Constants {
     public static int kFrontRightMotor = 2;
     public static int kBackLeftMotor = 3;
     public static int kBackRightMotor = 4;
-    public static int kPigeon2 = 5;
+    public static int kPigeon2 = 6;
   }
   public static class ArmConstants {
     //CAN Devices
@@ -33,8 +33,8 @@ public final class Constants {
     //DIO Inputs
     public static int kUpArmEncoderChannel = 0;
     //PCM Devices
-    public static int kLowArmSolenoidRetractChannel = 0;
-    public static int kLowArmSolenoidExtendChannel = 1;
+    public static int kLowArmSolenoidRetractChannel = 8;
+    public static int kLowArmSolenoidExtendChannel = 9;
     //Arm Positions
     public static double kPickupSpot = 0.00;
     public static double kScoreSpot = 0.00;
@@ -43,7 +43,7 @@ public final class Constants {
   }
   public static class PickupConstants {
     //PCM Devices
-    public static int kClawSolenoidRetractChannel = 2;
-    public static int kClawSolenoidExtendChannel = 3;
+    public static int kClawSolenoidRetractChannel = 10;
+    public static int kClawSolenoidExtendChannel = 11;
   }
 }
