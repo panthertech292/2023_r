@@ -31,9 +31,10 @@ public class RobotContainer {
   private final DriveSubsystem s_DriveSubsystem = new DriveSubsystem();
   private final ArmSubsystem s_ArmSubsystem = new ArmSubsystem();
   private final PickupSubsystem s_PickupSubsystem = new PickupSubsystem();
+  private final LEDSubsystem s_LEDSubsystem = new LEDSubsystem();
 
   //Drive Commands
-  private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
+  private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem, s_LEDSubsystem);
 
   //Auto Commands
   private final Command z_BasicAuto = new BasicAuto(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);

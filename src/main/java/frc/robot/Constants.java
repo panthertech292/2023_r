@@ -46,4 +46,8 @@ public final class Constants {
     public static int kClawSolenoidRetractChannel = 10;
     public static int kClawSolenoidExtendChannel = 11;
   }
+  public static class LEDConstants {
+    //PWM Devices
+    public static int kLEDPort = 9;
+  }
 }
