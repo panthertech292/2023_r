@@ -60,6 +60,12 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
     BackLeftMotorEncoder = BackLeftMotor.getEncoder();
     BackRightMotorEncoder = BackRightMotor.getEncoder();
+    FrontLeftMotorEncoder.setPositionConversionFactor(2.3);
+    FrontRightMotorEncoder.setPositionConversionFactor(2.3);
+    BackLeftMotorEncoder.setPositionConversionFactor(2.3);
+    BackRightMotorEncoder.setPositionConversionFactor(2.3);
+    zeroLeftMotorEncoder();
+    zeroRightMotorEncoder();
   }
 
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){
@@ -68,6 +74,23 @@ public class DriveSubsystem extends SubsystemBase {
     motor.setSmartCurrentLimit(60);
     motor.setInverted(inverted);
     motor.burnFlash();
+  }
+  public double getPitch(){
+    return Pigeon2.getRoll();
+  }
+  public double getLeftMotorEncoderPosition(){
+    return FrontLeftMotorEncoder.getPosition();
+  }
+  public double getRightMotorEncoderPosition(){
+    return -(FrontRightMotorEncoder.getPosition());
+  }
+  public void zeroLeftMotorEncoder(){
+    FrontLeftMotorEncoder.setPosition(0);
+    BackLeftMotorEncoder.setPosition(0);
+  }
+  public void zeroRightMotorEncoder(){
+    FrontRightMotorEncoder.setPosition(0);
+    BackRightMotorEncoder.setPosition(0);
   }
 
   public void tankDrive(double leftspeed, double rightspeed){
@@ -80,5 +103,6 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    
   }
 }
