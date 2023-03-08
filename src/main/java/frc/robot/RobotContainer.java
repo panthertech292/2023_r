@@ -37,8 +37,10 @@ public class RobotContainer {
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem, s_LEDSubsystem);
 
   //Auto Commands
-  private final Command z_BasicAuto = new BasicAuto(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
-  private final Command z_DriveBalance = new DriveBalance(s_DriveSubsystem);
+  private final Command z_BasicAuto = new AutoBasic(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
+  //private final Command z_DriveBalance = new DriveBalance(s_DriveSubsystem);
+  private final Command z_DriveUntilPitch = new DriveUntilPitch(s_DriveSubsystem, 0.15 , 5);
+  private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem);
   
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
@@ -53,7 +55,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    CameraServer.startAutomaticCapture().setFPS(20);
+    //CameraServer.startAutomaticCapture().setFPS(20);
     configureBindings();
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_ArmSubsystem.setDefaultCommand(z_DualArmManual);
@@ -69,7 +71,7 @@ public class RobotContainer {
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     d_yButton.whileTrue(z_DualArmFloorSpot);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
-    d_startButton.whileTrue(z_DriveBalance);
+    d_startButton.whileTrue(z_AutoBalance);
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
     d_rightBumper.onTrue(z_ClawClose);

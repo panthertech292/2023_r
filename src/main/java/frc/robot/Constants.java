@@ -33,13 +33,13 @@ public final class Constants {
     //DIO Inputs
     public static int kUpArmEncoderChannel = 0;
     //PCM Devices
-    public static int kLowArmSolenoidRetractChannel = 8;
-    public static int kLowArmSolenoidExtendChannel = 9;
+    public static int kLowArmSolenoidRetractChannel = 9;
+    public static int kLowArmSolenoidExtendChannel = 8;
     //Arm Positions
     public static double kPickupSpot = 0.00;
     public static double kScoreSpot = 0.00;
-    public static double kStowedSpot = 0.00;
-    public static double kFloorSpot = 0.00; 
+    public static double kStowedSpot = 0.60;
+    public static double kFloorSpot = 0.53; 
   }
   public static class PickupConstants {
     //PCM Devices

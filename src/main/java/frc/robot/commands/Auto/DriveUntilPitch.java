@@ -7,13 +7,15 @@ package frc.robot.commands.Auto;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveBalance extends CommandBase {
+public class DriveUntilPitch extends CommandBase {
   private final DriveSubsystem DriveSub;
-  private boolean onPlatform;
-  /** Creates a new DriveBalance. */
-  public DriveBalance(DriveSubsystem s_DriveSubsystem) {
+  private double v_speed;
+  private double v_pitch;
+  /** Creates a new DriveUntilPitch. */
+  public DriveUntilPitch(DriveSubsystem s_DriveSubsystem, double speed, double pitch) {
     DriveSub = s_DriveSubsystem;
-    
+    v_speed = -speed;
+    v_pitch = pitch;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);
   }
@@ -22,30 +24,13 @@ public class DriveBalance extends CommandBase {
   @Override
   public void initialize() {
     DriveSub.zeroRightMotorEncoder();
-    onPlatform = false;
   }
-
-  //THIS KINDA WORKS BE NEEDS TO BE REMADE. ONLY USE THIS UNLESS WE REALLY HAVE TO
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Math.abs(DriveSub.getPitch()) < 5){
-      if (!onPlatform){
-        DriveSub.tankDrive(.15, .15);
-        DriveSub.zeroRightMotorEncoder();
-      }
-    }
-    
-    if (DriveSub.getPitch() < -5){
-      onPlatform = true;
-      System.out.println(DriveSub.getRightMotorEncoderPosition());
-      if (DriveSub.getRightMotorEncoderPosition() > -35){
-        DriveSub.tankDrive(0.15, 0.15);
-      }else{
-        DriveSub.tankDrive(0, 0);
-      }
-    }
+    DriveSub.tankDrive(v_speed, v_speed);
+    //System.out.println("TRYING TO PITCH DRIVE");
   }
 
   // Called once the command ends or is interrupted.
@@ -57,6 +42,6 @@ public class DriveBalance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(DriveSub.getPitch()) > v_pitch);
   }
 }

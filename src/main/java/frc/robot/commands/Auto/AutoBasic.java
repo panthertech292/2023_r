@@ -15,9 +15,9 @@ import frc.robot.subsystems.ArmSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BasicAuto extends SequentialCommandGroup {
+public class AutoBasic extends SequentialCommandGroup {
   /** Creates a new BasicAuto. */
-  public BasicAuto(DriveSubsystem s_DriveSubsystem, ArmSubsystem s_ArmSubsystem, PickupSubsystem s_PickupSubsystem) {    
+  public AutoBasic(DriveSubsystem s_DriveSubsystem, ArmSubsystem s_ArmSubsystem, PickupSubsystem s_PickupSubsystem) {    
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

@@ -14,10 +14,16 @@ public class DualArmControl extends CommandBase {
   private double v_p;
   private double v_minSpeed;
   private double v_error;
+  private int v_counter;
 
   /** Creates a new DualArmControl. */
   public DualArmControl(ArmSubsystem s_ArmSubsystem, boolean setExtended, double target, double p, double minspeed) {
     ArmSub = s_ArmSubsystem;
+    v_setExtended = setExtended;
+    v_target = target;
+    v_p = p;
+    v_minSpeed = minspeed;
+    v_counter = 0;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_ArmSubsystem);
   }
@@ -30,13 +36,14 @@ public class DualArmControl extends CommandBase {
     }else{
       ArmSub.setLowArmCylinderRetracted();
     }
+    v_counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //Up Arm Control
-    v_error = ((v_target - ArmSub.getUpArmEncoder())*v_p);
+      v_error = ((v_target - ArmSub.getUpArmEncoder())*v_p);
     
     if (Math.abs(v_minSpeed) > Math.abs(v_error)){
       if (v_error > 0){
@@ -49,8 +56,6 @@ public class DualArmControl extends CommandBase {
     if (Math.abs(v_target - ArmSub.getUpArmEncoder()) < 0.008){
       v_error = 0;
     }
-    
-
     ArmSub.setUpArmMotorSpeed(v_error);
   }
 

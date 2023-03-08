@@ -35,6 +35,7 @@ public class ArmSubsystem extends SubsystemBase {
     UpArmMotor.restoreFactoryDefaults();
     UpArmMotor.setIdleMode(IdleMode.kBrake);
     UpArmMotor.setSmartCurrentLimit(60);
+    UpArmMotor.setInverted(true);
     UpArmMotor.burnFlash();
 
     //Up Arm Encoder

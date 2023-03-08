@@ -24,7 +24,7 @@ public class LEDSubsystem extends SubsystemBase {
 
   public void rainbow(int pulseSpeed) {
     // For every pixel
-    System.out.println("TRYING TO RAINBOW WITH: "+ pulseSpeed);
+    //System.out.println("TRYING TO RAINBOW WITH: "+ pulseSpeed);
     for (var i = 0; i < o_ledBuffer.getLength(); i++) {
       // Calculate the hue - hue is easier for rainbows because the color
       // shape is a circle so only one value needs to precess
