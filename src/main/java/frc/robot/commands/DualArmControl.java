@@ -53,7 +53,7 @@ public class DualArmControl extends CommandBase {
         v_error = -v_minSpeed;
       }
     }
-    if (Math.abs(v_target - ArmSub.getUpArmEncoder()) < 0.008){
+    if (Math.abs(v_target - ArmSub.getUpArmEncoder()) < 0.004){
       v_error = 0;
     }
     ArmSub.setUpArmMotorSpeed(v_error);

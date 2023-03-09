@@ -21,10 +21,10 @@ public final class Constants {
   }
   public static class DriveConstants {
     //CAN Devices
-    public static int kFrontLeftMotor = 1;
-    public static int kFrontRightMotor = 2;
-    public static int kBackLeftMotor = 3;
-    public static int kBackRightMotor = 4;
+    public static int kFrontLeftMotor = 2;
+    public static int kFrontRightMotor = 3;
+    public static int kBackLeftMotor = 4;
+    public static int kBackRightMotor = 5;
     public static int kPigeon2 = 6;
   }
   public static class ArmConstants {
@@ -36,15 +36,15 @@ public final class Constants {
     public static int kLowArmSolenoidRetractChannel = 9;
     public static int kLowArmSolenoidExtendChannel = 8;
     //Arm Positions
-    public static double kPickupSpot = 0.00;
-    public static double kScoreSpot = 0.00;
+    public static double kPickupSpot = 0.434;
+    public static double kScoreSpot = 0.261;
     public static double kStowedSpot = 0.60;
     public static double kFloorSpot = 0.53; 
   }
   public static class PickupConstants {
     //PCM Devices
-    public static int kClawSolenoidRetractChannel = 10;
-    public static int kClawSolenoidExtendChannel = 11;
+    public static int kClawSolenoidRetractChannel = 11;
+    public static int kClawSolenoidExtendChannel = 10;
   }
   public static class LEDConstants {
     //PWM Devices

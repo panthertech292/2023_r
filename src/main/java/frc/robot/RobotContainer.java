@@ -39,15 +39,15 @@ public class RobotContainer {
   //Auto Commands
   private final Command z_BasicAuto = new AutoBasic(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
   //private final Command z_DriveBalance = new DriveBalance(s_DriveSubsystem);
-  private final Command z_DriveUntilPitch = new DriveUntilPitch(s_DriveSubsystem, 0.15 , 5);
+  //private final Command z_DriveUntilPitch = new DriveUntilPitch(s_DriveSubsystem, 0.15 , 5);
   private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem);
   
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
-  private final Command z_DualArmPickupSpot = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,9,0.15);
-  private final Command z_DualArmScoreSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 9, 0.15);
-  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 9, 0.15);
-  private final Command z_DualArmFloorSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 9, 0.15);
+  private final Command z_DualArmPickupSpot = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
+  private final Command z_DualArmScoreSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0.0);
+  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 6, 0.0);
+  private final Command z_DualArmFloorSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
 
   //Pickup Commands
   private final Command z_ClawOpen = new ClawOpen(s_PickupSubsystem);

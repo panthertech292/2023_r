@@ -25,7 +25,8 @@ public class DualArmManual extends CommandBase {
   @Override
   public void execute() {
     ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY());
-    System.out.println("ARM: " + ArmSub.getUpArmEncoder());
+
+    //System.out.println("ARM: " + ArmSub.getUpArmEncoder());
     //Extend or Retract the low arm based on joystick position
     if (RobotContainer.getOperLeftSpeedY() > .15){
       ArmSub.setLowArmCylinderExtended();

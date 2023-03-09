@@ -36,6 +36,7 @@ public class ArmSubsystem extends SubsystemBase {
     UpArmMotor.setIdleMode(IdleMode.kBrake);
     UpArmMotor.setSmartCurrentLimit(60);
     UpArmMotor.setInverted(true);
+    UpArmMotor.enableVoltageCompensation(12);
     UpArmMotor.burnFlash();
 
     //Up Arm Encoder
@@ -53,6 +54,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public void setUpArmMotorSpeed(double speed){
     UpArmMotor.set(speed);
+    //System.out.println("UP ARM SPEED: " + speed + " POSITION:  " + getUpArmEncoder());
   }
   public double getUpArmEncoder(){
     return UpArmEncoder.getAbsolutePosition();
