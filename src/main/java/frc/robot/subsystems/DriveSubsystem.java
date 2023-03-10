@@ -61,10 +61,10 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
     BackLeftMotorEncoder = BackLeftMotor.getEncoder();
     BackRightMotorEncoder = BackRightMotor.getEncoder();
-    FrontLeftMotorEncoder.setPositionConversionFactor(2.3);
-    FrontRightMotorEncoder.setPositionConversionFactor(2.3);
-    BackLeftMotorEncoder.setPositionConversionFactor(2.3);
-    BackRightMotorEncoder.setPositionConversionFactor(2.3);
+    FrontLeftMotorEncoder.setPositionConversionFactor(2.4); //2.3 //Maybe 1.6?
+    FrontRightMotorEncoder.setPositionConversionFactor(2.4);
+    BackLeftMotorEncoder.setPositionConversionFactor(2.4);
+    BackRightMotorEncoder.setPositionConversionFactor(2.4);
     zeroLeftMotorEncoder();
     zeroRightMotorEncoder();
   }

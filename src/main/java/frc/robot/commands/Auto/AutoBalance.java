@@ -24,7 +24,7 @@ public class AutoBalance extends SequentialCommandGroup {
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(2),
       new ClawOpen(s_PickupSubsystem).withTimeout(0.4),
       new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(0.3),
-      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 9, 0).withTimeout(2),
+      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(2),
       new DriveUntilPitch(s_DriveSubsystem, -0.27, 10),
       new DriveToPosition(s_DriveSubsystem, -0.15, (-41), 0.03)
     );

@@ -32,14 +32,17 @@ public class DualArmManual extends CommandBase {
     }
     if (RobotContainer.getOperLeftSpeedY() < -0.15){
       ArmSub.setLowArmCylinderRetracted();
-    } //.36
-    //Arm check
+    }
+    //Arm check if the arm is retracted
     if (ArmSub.getUpArmEncoder() < 0.36 && (ArmSub.getArmCylinder() == Value.kReverse)){
       //The arm is up to high
-      ArmSub.setUpArmMotorSpeed(0.10);
+      ArmSub.setUpArmMotorSpeed(0.20);
+    }else if (ArmSub.getUpArmEncoder() < 0.23 && (ArmSub.getArmCylinder() == Value.kForward)){ //Arm check if the arm is extended
+      ArmSub.setUpArmMotorSpeed(0.20);
     }else{
       ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY());
     }
+    
     
   } 
 

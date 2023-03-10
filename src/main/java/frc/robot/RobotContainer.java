@@ -12,6 +12,8 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -36,6 +38,7 @@ public class RobotContainer {
 
   //Drive Commands
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem, s_LEDSubsystem);
+  private final Command z_HoldPosition = new DriveToPosition(s_DriveSubsystem, 0.10, 0, 0.03);
 
   //Auto Commands
   private final Command z_BasicAuto = new AutoBasic(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
@@ -51,8 +54,10 @@ public class RobotContainer {
   private final Command z_DualArmScoreSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0.0);
   private final Command z_DualArmFloorSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
   private final Command z_DualArmFloorSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
-  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 6, 0.0);
-  private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .40, 8 ,0.0);
+  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0.0);
+  private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0);
+
+  SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
   //Pickup Commands
   private final Command z_ClawOpen = new ClawOpen(s_PickupSubsystem);
@@ -60,10 +65,16 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    //CameraServer.startAutomaticCapture().setFPS(20);
+    CameraServer.startAutomaticCapture().setFPS(30);
     configureBindings();
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_ArmSubsystem.setDefaultCommand(z_DualArmManual);
+
+    //Auto Command Selector
+    o_AutoChooser.setDefaultOption("Basic Auto", z_BasicAuto);
+    o_AutoChooser.addOption("Auto Balance", z_AutoBalance);
+    o_AutoChooser.addOption("Auto Balance Traverse", z_AutoTraverseBalance);
+    SmartDashboard.putData(o_AutoChooser);
   }
 
   private void configureBindings() {
@@ -81,9 +92,10 @@ public class RobotContainer {
     d_xButton.onTrue(z_DualArmStowedSpot);
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     d_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
+    d_yButton.onFalse(z_ArmKick);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
-    d_startButton.whileTrue(z_AutoBalance);
-    final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
+    d_startButton.whileTrue(z_HoldPosition);
+    //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     
 
     //Operator Buttons
@@ -131,6 +143,11 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return z_AutoTraverseBalance;
+    if (o_AutoChooser != null){
+      return o_AutoChooser.getSelected();
+    }
+    else{
+      return z_BasicAuto;
+    }
   }
 }

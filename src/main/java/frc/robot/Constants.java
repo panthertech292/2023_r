@@ -39,7 +39,7 @@ public final class Constants {
     public static double kPickupSpot = 0.434;
     public static double kScoreSpot = 0.261;
     public static double kStowedSpot = 0.60;
-    public static double kFloorSpot = 0.53; 
+    public static double kFloorSpot = 0.48; 
   }
   public static class PickupConstants {
     //PCM Devices
