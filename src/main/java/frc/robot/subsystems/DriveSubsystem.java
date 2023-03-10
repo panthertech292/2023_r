@@ -15,10 +15,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class DriveSubsystem extends SubsystemBase {
   //Motors
   private final CANSparkMax FrontLeftMotor;
@@ -40,7 +36,6 @@ public class DriveSubsystem extends SubsystemBase {
   private RelativeEncoder BackLeftMotorEncoder;
   private RelativeEncoder BackRightMotorEncoder;
 
-  PowerDistribution revPDH;
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
     //Motors
@@ -52,9 +47,7 @@ public class DriveSubsystem extends SubsystemBase {
     InitDriveMotors(FrontRightMotor, false);
     InitDriveMotors(BackLeftMotor, true);
     InitDriveMotors(BackRightMotor, false);
-
-    revPDH = new PowerDistribution(1,ModuleType.kRev);
-
+    
     //Motor Control
     LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
     RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
@@ -79,7 +72,7 @@ public class DriveSubsystem extends SubsystemBase {
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(40);
+    motor.setSmartCurrentLimit(60);
     motor.setInverted(inverted);
     motor.burnFlash();
   }
@@ -111,13 +104,5 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //System.out.println("FL TEMP: " + FrontLeftMotor.getMotorTemperature());
-    //System.out.println("FR TEMP: " + FrontRightMotor.getMotorTemperature());
-    //System.out.println("BL VOLT: " + BackLeftMotor.getBusVoltage());
-    //System.out.println("BR VOLT: " + BackRightMotor.getBusVoltage());
-    SmartDashboard.putNumber("Voltage", revPDH.getVoltage());
-    SmartDashboard.putNumber("Total Current", revPDH.getTotalCurrent());
-    SmartDashboard.putNumber("Total Energy", revPDH.getTotalEnergy());
-    //SmartDashboard.put("Faults", revPDH.getFaults());
   }
 }

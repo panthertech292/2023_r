@@ -14,8 +14,8 @@ public class DriveManual extends CommandBase {
   /** Creates a new DriveManual. */
   public DriveManual(DriveSubsystem s_DriveSubsystem, double leftspeed, double rightspeed) {
     DriveSub = s_DriveSubsystem;
-    v_leftSpeed = leftspeed;
-    v_rightSpeed = rightspeed;
+    v_leftSpeed = -leftspeed;
+    v_rightSpeed = -rightspeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);

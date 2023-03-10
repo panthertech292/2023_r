@@ -43,6 +43,7 @@ public class DualArmControl extends CommandBase {
   @Override
   public void execute() {
     //Up Arm Control
+    //System.out.println("THIS IS RUNNING");
       v_error = ((v_target - ArmSub.getUpArmEncoder())*v_p);
     
     if (Math.abs(v_minSpeed) > Math.abs(v_error)){
@@ -68,6 +69,6 @@ public class DualArmControl extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(v_target - ArmSub.getUpArmEncoder()) < 0.004);
   }
 }

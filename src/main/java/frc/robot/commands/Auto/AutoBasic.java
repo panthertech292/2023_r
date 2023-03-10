@@ -21,10 +21,10 @@ public class AutoBasic extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 9, 0.15).withTimeout(4),
+      new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(4),
       new ClawOpen(s_PickupSubsystem).withTimeout(0.5),
-      new DriveManual(s_DriveSubsystem, -0.40, -0.40).withTimeout(4),
-      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 9, 0.15).withTimeout(2.5)
+      new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(3.5),
+      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 9, 0).withTimeout(2.5)
 
     );
   }

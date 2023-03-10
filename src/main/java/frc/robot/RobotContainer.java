@@ -13,6 +13,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
@@ -38,10 +39,9 @@ public class RobotContainer {
 
   //Auto Commands
   private final Command z_BasicAuto = new AutoBasic(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
-  //private final Command z_DriveBalance = new DriveBalance(s_DriveSubsystem);
-  //private final Command z_DriveUntilPitch = new DriveUntilPitch(s_DriveSubsystem, 0.15 , 5);
-  private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem);
-  
+  private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
+  private final Command z_AutoTraverseBalance = new AutoTraverseBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
+
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
   private final Command z_DualArmPickupSpot = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
@@ -63,13 +63,13 @@ public class RobotContainer {
 
   private void configureBindings() {
     final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
-    d_aButton.whileTrue(z_DualArmPickupSpot);
+    d_aButton.whileTrue(z_DualArmPickupSpot.repeatedly());
     final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
-    d_bButton.whileTrue(z_DualArmScoreSpot);
+    d_bButton.whileTrue(z_DualArmScoreSpot.repeatedly());
     final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
-    d_xButton.whileTrue(z_DualArmStowedSpot);
+    d_xButton.onTrue(z_DualArmStowedSpot);
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
-    d_yButton.whileTrue(z_DualArmFloorSpot);
+    d_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     d_startButton.whileTrue(z_AutoBalance);
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
@@ -84,13 +84,13 @@ public class RobotContainer {
     final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
     o_leftBumper.onTrue(z_ClawOpen);
     final JoystickButton o_aButton = new JoystickButton(io_opercontroller, Button.kA.value);
-    o_aButton.whileTrue(z_DualArmPickupSpot); 
+    o_aButton.whileTrue(z_DualArmPickupSpot.repeatedly()); 
     final JoystickButton o_bButton = new JoystickButton(io_opercontroller, Button.kB.value);
-    o_bButton.whileTrue(z_DualArmScoreSpot);
+    o_bButton.whileTrue(z_DualArmScoreSpot.repeatedly());
     final JoystickButton o_xButton = new JoystickButton(io_opercontroller, Button.kX.value);
-    o_xButton.whileTrue(z_DualArmStowedSpot);
+    o_xButton.onTrue(z_DualArmStowedSpot);
     final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
-    o_yButton.whileTrue(z_DualArmFloorSpot);
+    o_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
   }
   public static double deadZoneCheck(double rawInput, double deadBand){
     if (Math.abs(rawInput) > deadBand){
@@ -120,7 +120,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    // An example command will be run in autonomous
-    return z_BasicAuto;
+    return z_AutoTraverseBalance;
   }
 }

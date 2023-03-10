@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ArmSubsystem;
@@ -24,16 +25,22 @@ public class DualArmManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY());
-
-    //System.out.println("ARM: " + ArmSub.getUpArmEncoder());
+    //System.out.println("ARM POSITION: " + ArmSub.getUpArmEncoder()+ " LOW: " + ArmSub.getArmCylinder());
     //Extend or Retract the low arm based on joystick position
     if (RobotContainer.getOperLeftSpeedY() > .15){
       ArmSub.setLowArmCylinderExtended();
     }
     if (RobotContainer.getOperLeftSpeedY() < -0.15){
       ArmSub.setLowArmCylinderRetracted();
+    } //.36
+    //Arm check
+    if (ArmSub.getUpArmEncoder() < 0.36 && (ArmSub.getArmCylinder() == Value.kReverse)){
+      //The arm is up to high
+      ArmSub.setUpArmMotorSpeed(0.10);
+    }else{
+      ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY());
     }
+    
   } 
 
   // Called once the command ends or is interrupted.
