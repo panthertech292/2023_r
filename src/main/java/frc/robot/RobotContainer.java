@@ -44,10 +44,15 @@ public class RobotContainer {
 
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
+  //THE O versions should be the same as driver version
   private final Command z_DualArmPickupSpot = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
+  private final Command z_DualArmPickupSpotO = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
   private final Command z_DualArmScoreSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0.0);
-  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 6, 0.0);
+  private final Command z_DualArmScoreSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0.0);
   private final Command z_DualArmFloorSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
+  private final Command z_DualArmFloorSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
+  private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 6, 0.0);
+  private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .40, 8 ,0.0);
 
   //Pickup Commands
   private final Command z_ClawOpen = new ClawOpen(s_PickupSubsystem);
@@ -62,6 +67,12 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+    //Bumpers
+    final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
+    d_rightBumper.onTrue(z_ClawClose);
+    final JoystickButton d_leftBumper = new JoystickButton(io_drivercontroller, Button.kLeftBumper.value);
+    d_leftBumper.onTrue(z_ClawOpen);
+    //Letters
     final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
     d_aButton.whileTrue(z_DualArmPickupSpot.repeatedly());
     final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
@@ -72,25 +83,25 @@ public class RobotContainer {
     d_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     d_startButton.whileTrue(z_AutoBalance);
-    //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
-    final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
-    d_rightBumper.onTrue(z_ClawClose);
-    final JoystickButton d_leftBumper = new JoystickButton(io_drivercontroller, Button.kLeftBumper.value);
-    d_leftBumper.onTrue(z_ClawOpen);
+    final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
+    
 
     //Operator Buttons
+    //Bumoers
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
     o_rightBumper.onTrue(z_ClawClose);
     final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
     o_leftBumper.onTrue(z_ClawOpen);
+    //Letters
     final JoystickButton o_aButton = new JoystickButton(io_opercontroller, Button.kA.value);
-    o_aButton.whileTrue(z_DualArmPickupSpot.repeatedly()); 
+    o_aButton.whileTrue(z_DualArmPickupSpotO.repeatedly()); 
     final JoystickButton o_bButton = new JoystickButton(io_opercontroller, Button.kB.value);
-    o_bButton.whileTrue(z_DualArmScoreSpot.repeatedly());
+    o_bButton.whileTrue(z_DualArmScoreSpotO.repeatedly());
     final JoystickButton o_xButton = new JoystickButton(io_opercontroller, Button.kX.value);
     o_xButton.onTrue(z_DualArmStowedSpot);
     final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
-    o_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
+    o_yButton.whileTrue(z_DualArmFloorSpotO.repeatedly());
+    o_yButton.onFalse(z_ArmKick);
   }
   public static double deadZoneCheck(double rawInput, double deadBand){
     if (Math.abs(rawInput) > deadBand){
