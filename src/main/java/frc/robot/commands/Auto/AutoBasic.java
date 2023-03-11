@@ -23,7 +23,7 @@ public class AutoBasic extends SequentialCommandGroup {
     addCommands(
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(4),
       new ClawOpen(s_PickupSubsystem).withTimeout(0.5),
-      new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(3.5),
+      new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(5.5),
       new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(2.5)
 
     );
