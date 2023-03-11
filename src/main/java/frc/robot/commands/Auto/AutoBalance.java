@@ -12,6 +12,7 @@ import frc.robot.commands.DualArmControl;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -21,12 +22,12 @@ public class AutoBalance extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(2),
-      new ClawOpen(s_PickupSubsystem).withTimeout(0.4),
-      new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(0.3),
+      //new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(2),
+      //new ClawOpen(s_PickupSubsystem).withTimeout(0.4),
+      //new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(0.3),
       new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(2),
-      new DriveUntilPitch(s_DriveSubsystem, -0.27, 10),
-      new DriveToPosition(s_DriveSubsystem, -0.15, (-41), 0.03)
+      new DriveUntilPitch(s_DriveSubsystem, -0.27, 5),
+      new DriveToPosition(s_DriveSubsystem, -0.15, (-90), 0.03)
     );
   }
 }
