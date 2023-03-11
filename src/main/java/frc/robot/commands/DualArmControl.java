@@ -14,7 +14,6 @@ public class DualArmControl extends CommandBase {
   private double v_p;
   private double v_minSpeed;
   private double v_error;
-  private int v_counter;
 
   /** Creates a new DualArmControl. */
   public DualArmControl(ArmSubsystem s_ArmSubsystem, boolean setExtended, double target, double p, double minspeed) {
@@ -23,7 +22,6 @@ public class DualArmControl extends CommandBase {
     v_target = target;
     v_p = p;
     v_minSpeed = minspeed;
-    v_counter = 0;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_ArmSubsystem);
   }
@@ -36,7 +34,6 @@ public class DualArmControl extends CommandBase {
     }else{
       ArmSub.setLowArmCylinderRetracted();
     }
-    v_counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
