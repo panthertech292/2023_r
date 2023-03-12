@@ -37,7 +37,7 @@ public final class Constants {
     public static int kLowArmSolenoidExtendChannel = 8;
     //Arm Positions
     public static double kPickupSpot = 0.456;
-    public static double kScoreSpot = 0.261;
+    public static double kScoreSpot = 0.278;
     public static double kStowedSpot = 0.62;
     public static double kFloorSpot = 0.48; 
   }

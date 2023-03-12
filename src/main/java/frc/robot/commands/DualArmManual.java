@@ -25,7 +25,7 @@ public class DualArmManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("ARM POSITION: " + ArmSub.getUpArmEncoder()+ " LOW: " + ArmSub.getArmCylinder());
+    //System.out.println("ARM POSITION: " + ArmSub.getUpArmEncoder()); //" LOW: " + ArmSub.getArmCylinder());
     //Extend or Retract the low arm based on joystick position
     if (RobotContainer.getOperLeftSpeedY() > .15){
       ArmSub.setLowArmCylinderExtended();
@@ -34,6 +34,7 @@ public class DualArmManual extends CommandBase {
       ArmSub.setLowArmCylinderRetracted();
     }
     //Arm check if the arm is retracted
+    
     if (ArmSub.getUpArmEncoder() < 0.36 && (ArmSub.getArmCylinder() == Value.kReverse)){
       //The arm is up to high
       ArmSub.setUpArmMotorSpeed(0.20);

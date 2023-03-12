@@ -24,11 +24,11 @@ public class AutoTraverseBalance extends SequentialCommandGroup {
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(2),
       new ClawOpen(s_PickupSubsystem).withTimeout(0.4),
       new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(0.3),
-      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(1.7),
-      new DriveUntilPitch(s_DriveSubsystem, -0.3, 10),
-      new DriveUntilZeroPitch(s_DriveSubsystem, -0.3),
-      new DriveUntilPitch(s_DriveSubsystem, 0.27, 10),
-      new DriveToPosition(s_DriveSubsystem, 0.15, (36), 0.03)
+      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(2),
+      new DriveUntilPitch(s_DriveSubsystem, -0.27, 5),
+      new DriveToPosition(s_DriveSubsystem, -0.25, (-34), 0.003),
+      new DriveUntilPitch(s_DriveSubsystem, 0.27, 5),
+      new DriveToPosition(s_DriveSubsystem, 0.15, (54), 0.001)
     );
   }
 }
