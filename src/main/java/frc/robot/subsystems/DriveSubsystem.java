@@ -10,6 +10,9 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,6 +38,11 @@ public class DriveSubsystem extends SubsystemBase {
   private RelativeEncoder FrontRightMotorEncoder;
   private RelativeEncoder BackLeftMotorEncoder;
   private RelativeEncoder BackRightMotorEncoder;
+
+  //Limelight
+  NetworkTableEntry v_limeLightX;
+  NetworkTableEntry v_limeLightY;
+  NetworkTableEntry v_limeLightValidTarget;
 
   /** Creates a new DriveSubsystem. */
   public DriveSubsystem() {
@@ -67,6 +75,12 @@ public class DriveSubsystem extends SubsystemBase {
     BackRightMotorEncoder.setPositionConversionFactor(2.4);
     zeroLeftMotorEncoder();
     zeroRightMotorEncoder();
+
+    //Limelight
+    NetworkTable limeLightTable = NetworkTableInstance.getDefault().getTable("limelight");
+    v_limeLightX = limeLightTable.getEntry("tx");
+    v_limeLightY = limeLightTable.getEntry("ty");
+    v_limeLightValidTarget = limeLightTable.getEntry("tv");
   }
 
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){
@@ -92,6 +106,24 @@ public class DriveSubsystem extends SubsystemBase {
   public void zeroRightMotorEncoder(){
     FrontRightMotorEncoder.setPosition(0);
     BackRightMotorEncoder.setPosition(0);
+  }
+  //Limelight
+  public double getVisionAngle(){
+    return v_limeLightX.getDouble(0.0);
+  }
+  public double getVisionYDistance(){
+    return v_limeLightY.getDouble(0.0);
+  }
+  public boolean getVisionValidTarget(){
+    return (v_limeLightValidTarget.getDouble(0.0) == 1);
+  }
+  public void setLimeLightDriverCam(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+  }
+  public void setLimeLightVisionCam(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
   }
 
   public void tankDrive(double leftspeed, double rightspeed){

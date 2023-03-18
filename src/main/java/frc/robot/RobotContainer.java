@@ -8,6 +8,7 @@ import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.commands.Vision.VisionAngleAlign;
 import frc.robot.subsystems.*;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -46,7 +47,7 @@ public class RobotContainer {
 
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
-  //THE O versions should be the same as driver version
+  //THE O versions should be the same as driver version. I don't like doing this. It's bad, but I don't see an alternative.
   private final Command z_DualArmPickupSpot = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
   private final Command z_DualArmPickupSpotO = new DualArmControl(s_ArmSubsystem, false,ArmConstants.kPickupSpot,8,0.0);
   private final Command z_DualArmScoreSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0.0);
@@ -55,6 +56,9 @@ public class RobotContainer {
   private final Command z_DualArmFloorSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
   private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0.0);
   private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0);
+
+  //Vision Commands
+  private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.10, .010);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -94,6 +98,9 @@ public class RobotContainer {
     d_yButton.onFalse(z_ArmKick);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     d_startButton.whileTrue(z_HoldPosition);
+    final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
+    d_backButton.whileTrue(z_VisionAngleAlign);
+
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     
 
