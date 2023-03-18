@@ -26,7 +26,8 @@ public class AutoTraverseBalance extends SequentialCommandGroup {
       new DriveManual(s_DriveSubsystem, -0.20, -0.20).withTimeout(0.3),
       new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0).withTimeout(2),
       new DriveUntilPitch(s_DriveSubsystem, -0.27, 5),
-      new DriveToPositionEnd(s_DriveSubsystem, -0.25, (-115), 0.003),
+      new DriveToPositionEnd(s_DriveSubsystem, -0.25, (-125), 0.003),
+      new DriveManual(s_DriveSubsystem,0,0).withTimeout(0.5),
       new DriveUntilPitch(s_DriveSubsystem, 0.27, 5),
       new DriveToPosition(s_DriveSubsystem, 0.15, (52), 0.001)
     );
