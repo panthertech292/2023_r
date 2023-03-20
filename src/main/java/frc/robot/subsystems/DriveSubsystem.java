@@ -81,6 +81,7 @@ public class DriveSubsystem extends SubsystemBase {
     v_limeLightX = limeLightTable.getEntry("tx");
     v_limeLightY = limeLightTable.getEntry("ty");
     v_limeLightValidTarget = limeLightTable.getEntry("tv");
+    setLimeLightPipeline(0);
   }
 
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){
@@ -124,6 +125,12 @@ public class DriveSubsystem extends SubsystemBase {
   public void setLimeLightVisionCam(){
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+  }
+  public void setLimeLightPipeline(int pipeline){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipeline);
+  }
+  public int getLimeLightPipeline(){
+    return (int) NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").getInteger(0);
   }
 
   public void tankDrive(double leftspeed, double rightspeed){

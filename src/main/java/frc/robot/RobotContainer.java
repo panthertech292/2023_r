@@ -9,6 +9,8 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Vision.VisionAngleAlign;
+import frc.robot.commands.Vision.VisionDistanceAlign;
+import frc.robot.commands.Vision.VisionScore;
 import frc.robot.subsystems.*;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -58,7 +60,9 @@ public class RobotContainer {
   private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0);
 
   //Vision Commands
-  private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.10, .010);
+  private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, .010);
+  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.10, .010, 0);
+  private final Command z_VisionScore = new VisionScore(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -98,14 +102,14 @@ public class RobotContainer {
     d_yButton.onFalse(z_ArmKick);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     d_startButton.whileTrue(z_HoldPosition);
+    //d_startButton.whileTrue(z_VisionDistanceAlign);
     final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
-    d_backButton.whileTrue(z_VisionAngleAlign);
+    d_backButton.whileTrue(z_VisionScore);
 
-    //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     
 
     //Operator Buttons
-    //Bumoers
+    //Bumpers
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
     o_rightBumper.onTrue(z_ClawClose);
     final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
@@ -120,6 +124,9 @@ public class RobotContainer {
     final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
     o_yButton.whileTrue(z_DualArmFloorSpotO.repeatedly());
     o_yButton.onFalse(z_ArmKick);
+    //Small buttons
+    final JoystickButton o_startButton = new JoystickButton(io_opercontroller, Button.kStart.value);
+    o_startButton.whileTrue(z_VisionAngleAlign);
   }
   public static double deadZoneCheck(double rawInput, double deadBand){
     if (Math.abs(rawInput) > deadBand){
@@ -155,6 +162,9 @@ public class RobotContainer {
     else{
       return z_BasicAuto;
     }
+  }
+  public void setDisabledLED() {
+    s_LEDSubsystem.setSolidColor(255, 40, 0);
   }
   
 }
