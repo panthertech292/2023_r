@@ -48,6 +48,7 @@ public final class Constants {
   }
   public static class LEDConstants {
     //PWM Devices
-    public static int kLEDPort = 9;
+    public static int kRightLEDPort = 9;
+    public static int kLeftLEDPort = 8;
   }
 }

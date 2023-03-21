@@ -11,46 +11,64 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
-  private AddressableLED o_led;
-  private AddressableLEDBuffer o_ledBuffer;
+  //Right Side LEDs
+  private AddressableLED rightLed;
+  private AddressableLEDBuffer rightLedBuffer;
+
+  //Left Side LEDs
+  private AddressableLED leftLed;
+  private AddressableLEDBuffer leftLedBuffer;
+
   private int v_rainbowFirstPixelHue;
 
   public LEDSubsystem() {
-    o_led = new AddressableLED(LEDConstants.kLEDPort);
-    o_ledBuffer = new AddressableLEDBuffer(150);
-    o_led.setLength(o_ledBuffer.getLength());
-    o_led.setData(o_ledBuffer);
-    o_led.start();
+    rightLed = new AddressableLED(LEDConstants.kRightLEDPort);
+    rightLedBuffer = new AddressableLEDBuffer(150);
+    rightLed.setLength(rightLedBuffer.getLength());
+    rightLed.setData(rightLedBuffer);
+    rightLed.start();
+
+    leftLed = new AddressableLED(LEDConstants.kLeftLEDPort);
+    leftLedBuffer = new AddressableLEDBuffer(150);
+    leftLed.setLength(leftLedBuffer.getLength());
+    leftLed.setData(leftLedBuffer);
+    leftLed.start();
   }
   public void setOff(){
-    for (var i = 0; i < o_ledBuffer.getLength(); i++) {
-      o_ledBuffer.setRGB(i, 0, 0, 0);
+    for (var i = 0; i < rightLedBuffer.getLength(); i++) {
+      rightLedBuffer.setRGB(i, 0, 0, 0);
+      leftLedBuffer.setRGB(i, 0, 0, 0);
     }
-    o_led.setData(o_ledBuffer);
+    rightLed.setData(rightLedBuffer);
+    leftLed.setData(leftLedBuffer);
   }
 
   public void setSolidColor(int r, int g, int b){
-    for (var i = 0; i < o_ledBuffer.getLength(); i++) {
-      o_ledBuffer.setRGB(i, r, g, b);
+    for (var i = 0; i < rightLedBuffer.getLength(); i++) {
+      rightLedBuffer.setRGB(i, r, g, b);
+      leftLedBuffer.setRGB(i, r, g, b);
     }
-    o_led.setData(o_ledBuffer);
+    rightLed.setData(rightLedBuffer);
+    leftLed.setData(leftLedBuffer);
   }
 
+  /* 
   public void setColorChase(int r, int g, int b){
-    for (var i = 0; i < o_ledBuffer.getLength(); i++) {
-      o_ledBuffer.setRGB(i, r, g,b);
+    for (var i = 0; i < rightLedBuffer.getLength(); i++) {
+      rightLedBuffer.setRGB(i, r, g,b);
     }
-    o_led.setData(o_ledBuffer);
-  }
+    rightLed.setData(rightLedBuffer);
+  }*/
 
   public void rainbow(int pulseSpeed) {
     // For every pixel
-    for (var i = 0; i < o_ledBuffer.getLength(); i++) {
+    for (var i = 0; i < rightLedBuffer.getLength(); i++) {
       // Calculate the hue - hue is easier for rainbows because the color
       // shape is a circle so only one value needs to precess
-      final var hue = (v_rainbowFirstPixelHue + (i * 180 / o_ledBuffer.getLength())) % 180;
+      final var hue = (v_rainbowFirstPixelHue + (i * 180 / rightLedBuffer.getLength())) % 180;
       // Set the value
-      o_ledBuffer.setHSV(i, hue, 255, 128);
+      rightLedBuffer.setHSV(i, hue, 255, 128);
+      leftLedBuffer.setHSV(i, hue, 255, 128);
     }
     // Increase by to make the rainbow "move"
     v_rainbowFirstPixelHue += pulseSpeed;
@@ -58,7 +76,8 @@ public class LEDSubsystem extends SubsystemBase {
     v_rainbowFirstPixelHue %= 180;
     //v_rainbowFirstPixelHue %= 255;
 
-    o_led.setData(o_ledBuffer);
+    rightLed.setData(rightLedBuffer);
+    leftLed.setData(leftLedBuffer);
   }
 
   @Override
