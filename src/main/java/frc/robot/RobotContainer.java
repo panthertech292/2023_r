@@ -11,9 +11,12 @@ import frc.robot.commands.Auto.*;
 import frc.robot.commands.Vision.VisionAngleAlign;
 import frc.robot.commands.Vision.VisionDistanceAlign;
 import frc.robot.commands.Vision.VisionScore;
+import frc.robot.commands.Vision.VisionScoreCube;
 import frc.robot.subsystems.*;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -61,8 +64,9 @@ public class RobotContainer {
 
   //Vision Commands
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, .010);
-  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.10, .010, 0);
+  //private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.10, .010, 0);
   private final Command z_VisionScore = new VisionScore(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
+  private final Command z_VisionScoreCube = new VisionScoreCube(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -163,8 +167,13 @@ public class RobotContainer {
       return z_BasicAuto;
     }
   }
+  
   public void setDisabledLED() {
-    s_LEDSubsystem.setSolidColor(0, 0, 128);
+    if (DriverStation.getAlliance() == Alliance.Red){
+      s_LEDSubsystem.setSolidColor(128, 0, 0);
+    }else{
+      s_LEDSubsystem.setSolidColor(0, 0, 128);
+    }
   }
   
 }

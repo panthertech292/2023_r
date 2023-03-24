@@ -82,6 +82,7 @@ public class DriveSubsystem extends SubsystemBase {
     v_limeLightY = limeLightTable.getEntry("ty");
     v_limeLightValidTarget = limeLightTable.getEntry("tv");
     setLimeLightPipeline(0);
+    setLimeLightVisionCam();
   }
 
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){

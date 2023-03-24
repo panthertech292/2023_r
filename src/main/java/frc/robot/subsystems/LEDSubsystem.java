@@ -8,12 +8,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
   private AddressableLED o_led;
   private AddressableLEDBuffer o_ledBuffer;
   private int v_rainbowFirstPixelHue;
+  private int lowerBound = 0;
+  private int upperBound = 10;
+  private int hue;
+
 
   public LEDSubsystem() {
     o_led = new AddressableLED(LEDConstants.kLEDPort);
@@ -35,13 +41,35 @@ public class LEDSubsystem extends SubsystemBase {
     }
     o_led.setData(o_ledBuffer);
   }
+  public void setColorChase(int r, int g, int b, int pulseSpeed){
 
-  public void setColorChase(int r, int g, int b){
     for (var i = 0; i < o_ledBuffer.getLength(); i++) {
-      o_ledBuffer.setRGB(i, r, g,b);
+      //System.out.println("I: "+ i + " LOW: "+lowerBound + " HI: " +upperBound);
+      if (DriverStation.getAlliance() == Alliance.Red){
+        hue = 0;
+      }else{
+        hue = 120;
+      }
+
+      if ((i > lowerBound) && (i < upperBound)){
+        hue = 147;
+      }
+      //System.out.println((i > lowerBound) && (i < upperBound));
+      o_ledBuffer.setHSV(i, hue, 255,128);
+    }
+    
+    //System.out.println("LOW: " + lowerBound + "UP: " + upperBound);
+    
+    if (upperBound + 1 > 150){
+      lowerBound = 0;
+      upperBound = 10;
+    }else{
+      upperBound = upperBound + 1;
+      lowerBound = lowerBound + 1;
     }
     o_led.setData(o_ledBuffer);
   }
+
 
   public void rainbow(int pulseSpeed) {
     // For every pixel

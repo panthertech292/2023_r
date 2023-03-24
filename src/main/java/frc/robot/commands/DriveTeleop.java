@@ -31,8 +31,8 @@ public class DriveTeleop extends CommandBase {
   public void execute() {
     DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.80, (RobotContainer.getDriverRightSpeedY()));
 
-    LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
-    //LEDSub.setColorChase(255, 0, 0);
+    //LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
+    LEDSub.setColorChase(255, 0, 0, 0);
   }
 
   // Called once the command ends or is interrupted.
