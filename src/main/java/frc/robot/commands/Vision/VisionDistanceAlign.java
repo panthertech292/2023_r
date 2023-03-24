@@ -49,7 +49,7 @@ public class VisionDistanceAlign extends CommandBase {
       }
     }
     DriveSub.tankDrive(-v_error, -v_error);
-    //System.out.println("ERR: " + (v_distanceTarget - DriveSub.getVisionYDistance()));
+    System.out.println("DRIVE SPD: " + -v_error +" ERR: " + (v_distanceTarget - DriveSub.getVisionYDistance()));
   }
 
   // Called once the command ends or is interrupted.

@@ -43,8 +43,8 @@ public final class Constants {
   }
   public static class PickupConstants {
     //PCM Devices
-    public static int kClawSolenoidRetractChannel = 11;
-    public static int kClawSolenoidExtendChannel = 10;
+    public static int kClawSolenoidRetractChannel = 10;
+    public static int kClawSolenoidExtendChannel = 11;
   }
   public static class LEDConstants {
     //PWM Devices

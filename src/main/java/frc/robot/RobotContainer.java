@@ -164,7 +164,7 @@ public class RobotContainer {
     }
   }
   public void setDisabledLED() {
-    s_LEDSubsystem.setSolidColor(255, 40, 0);
+    s_LEDSubsystem.setSolidColor(0, 0, 128);
   }
   
 }

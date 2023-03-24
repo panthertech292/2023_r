@@ -14,6 +14,7 @@ public class VisionAngleAlign extends CommandBase {
   private double v_error;
   private double v_minSpeed;
   private double v_p;
+  //private double v_onTargetCount;
   /** Creates a new VisionAngleAlign. */
   public VisionAngleAlign(DriveSubsystem s_DriveSubsystem, LEDSubsystem s_LEDSubsystem, double minSpeed, double p) {
     DriveSub = s_DriveSubsystem;
@@ -30,6 +31,7 @@ public class VisionAngleAlign extends CommandBase {
     DriveSub.tankDrive(0, 0);
     DriveSub.setLimeLightVisionCam();
     LEDSub.setOff();
+    //v_onTargetCount = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,6 +48,9 @@ public class VisionAngleAlign extends CommandBase {
       }
     }
     DriveSub.tankDrive(-v_error, v_error);
+    //if (Math.abs(DriveSub.getVisionAngle()) < 1){
+    //  v_onTargetCount++;
+    //}
     System.out.println("VISION ANGLE ALIGN: ERR: " + v_error + " ANGLE: " + DriveSub.getVisionAngle());
   }
 
@@ -60,6 +65,6 @@ public class VisionAngleAlign extends CommandBase {
   @Override
   public boolean isFinished() {
     //return ((Math.abs(DriveSub.getVisionAngle()) < 0.5) && (v_timer > 15));
-    return ((Math.abs(DriveSub.getVisionAngle()) < 0.4) && (DriveSub.getVisionValidTarget()));
+    return ((Math.abs(DriveSub.getVisionAngle()) < 0.4) && (DriveSub.getVisionValidTarget())); //&& (v_onTargetCount > 2));
   }
 }
