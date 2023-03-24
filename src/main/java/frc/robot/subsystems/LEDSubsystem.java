@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
@@ -28,6 +26,7 @@ public class LEDSubsystem extends SubsystemBase {
     o_led.setData(o_ledBuffer);
     o_led.start();
   }
+
   public void setOff(){
     for (var i = 0; i < o_ledBuffer.getLength(); i++) {
       o_ledBuffer.setRGB(i, 0, 0, 0);
@@ -41,35 +40,37 @@ public class LEDSubsystem extends SubsystemBase {
     }
     o_led.setData(o_ledBuffer);
   }
-  public void setColorChase(int r, int g, int b, int pulseSpeed){
 
+  public void setColorChase(int mainHue ,int chaseHue, int pulseSpeed){
     for (var i = 0; i < o_ledBuffer.getLength(); i++) {
-      //System.out.println("I: "+ i + " LOW: "+lowerBound + " HI: " +upperBound);
-      if (DriverStation.getAlliance() == Alliance.Red){
-        hue = 0;
-      }else{
-        hue = 120;
-      }
+      hue = mainHue;
 
       if ((i > lowerBound) && (i < upperBound)){
-        hue = 147;
+        hue = chaseHue; //was  = 147 before
       }
-      //System.out.println((i > lowerBound) && (i < upperBound));
-      o_ledBuffer.setHSV(i, hue, 255,128);
+      if ((i > lowerBound+37) && (i < upperBound+37)){
+        hue = chaseHue; //was  = 147 before
+      }
+      if ((i > lowerBound+75) && (i < upperBound+75)){
+        hue = chaseHue; //was  = 147 before
+      }
+      if ((i > lowerBound+112) && (i < upperBound+112)){
+        hue = chaseHue; //was  = 147 before
+      }
+      //You can't change the S & V on this without causing issues it seems. so just only change the hue.
+      //Not sure if it's a skill issue or a WPI issue.
+      o_ledBuffer.setHSV(i, hue, 255,128); 
     }
     
-    //System.out.println("LOW: " + lowerBound + "UP: " + upperBound);
-    
-    if (upperBound + 1 > 150){
+    if (upperBound + 1 + pulseSpeed > 150){
       lowerBound = 0;
       upperBound = 10;
     }else{
-      upperBound = upperBound + 1;
-      lowerBound = lowerBound + 1;
+      upperBound = upperBound + 1 + pulseSpeed;
+      lowerBound = lowerBound + 1 + pulseSpeed;
     }
     o_led.setData(o_ledBuffer);
   }
-
 
   public void rainbow(int pulseSpeed) {
     // For every pixel

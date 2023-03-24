@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
@@ -31,8 +33,14 @@ public class DriveTeleop extends CommandBase {
   public void execute() {
     DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.80, (RobotContainer.getDriverRightSpeedY()));
 
+    
+    if (DriverStation.getAlliance() == Alliance.Red){
+      LEDSub.setColorChase(0, 147, 0); //Set colors to red
+    }else{
+      LEDSub.setColorChase(120, 147, 0); //Set colors to blue
+    }
     //LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
-    LEDSub.setColorChase(255, 0, 0, 0);
+    
   }
 
   // Called once the command ends or is interrupted.

@@ -9,7 +9,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
 import frc.robot.commands.Vision.VisionAngleAlign;
-import frc.robot.commands.Vision.VisionDistanceAlign;
 import frc.robot.commands.Vision.VisionScore;
 import frc.robot.commands.Vision.VisionScoreCube;
 import frc.robot.subsystems.*;
@@ -104,12 +103,13 @@ public class RobotContainer {
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     d_yButton.whileTrue(z_DualArmFloorSpot.repeatedly());
     d_yButton.onFalse(z_ArmKick);
+    //Others
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     d_startButton.whileTrue(z_HoldPosition);
-    //d_startButton.whileTrue(z_VisionDistanceAlign);
     final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     d_backButton.whileTrue(z_VisionScore);
-
+    final JoystickButton d_leftStick = new JoystickButton(io_drivercontroller, Button.kLeftStick.value);
+    d_leftStick.whileTrue(z_VisionScoreCube);
     
 
     //Operator Buttons
