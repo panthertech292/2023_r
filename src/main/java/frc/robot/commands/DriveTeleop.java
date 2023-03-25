@@ -31,13 +31,15 @@ public class DriveTeleop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.80, (RobotContainer.getDriverRightSpeedY()));
+    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.83, (RobotContainer.getDriverRightSpeedY()));
 
-    
+
     if (DriverStation.getAlliance() == Alliance.Red){
-      LEDSub.setColorChase(0, 147, 0); //Set colors to red
+      //LEDSub.setColorChase(0, 120, 0); //Set colors to red 
+      LEDSub.setColorChase(0, 120, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }else{
-      LEDSub.setColorChase(120, 147, 0); //Set colors to blue
+      //LEDSub.setColorChase(120, 0, 0); //Set colors to blue
+      LEDSub.setColorChase(120, 0, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }
     //LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
     

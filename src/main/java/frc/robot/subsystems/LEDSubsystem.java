@@ -16,6 +16,12 @@ public class LEDSubsystem extends SubsystemBase {
   private int v_rainbowFirstPixelHue;
   private int lowerBound = 0;
   private int upperBound = 10;
+  private int lowerBound1 = 0+37;
+  private int upperBound1 = 10+37;
+  private int lowerBound2 = 0+75;
+  private int upperBound2 = 10+75;
+  private int lowerBound3 = 0+112;
+  private int upperBound3 = 10+112;
   private int hue;
 
 
@@ -48,13 +54,13 @@ public class LEDSubsystem extends SubsystemBase {
       if ((i > lowerBound) && (i < upperBound)){
         hue = chaseHue; //was  = 147 before
       }
-      if ((i > lowerBound+37) && (i < upperBound+37)){
+      if ((i > lowerBound1) && (i < upperBound1)){
         hue = chaseHue; //was  = 147 before
       }
-      if ((i > lowerBound+75) && (i < upperBound+75)){
+      if ((i > lowerBound2) && (i < upperBound2)){
         hue = chaseHue; //was  = 147 before
       }
-      if ((i > lowerBound+112) && (i < upperBound+112)){
+      if ((i > lowerBound3) && (i < upperBound3)){
         hue = chaseHue; //was  = 147 before
       }
       //You can't change the S & V on this without causing issues it seems. so just only change the hue.
@@ -68,6 +74,29 @@ public class LEDSubsystem extends SubsystemBase {
     }else{
       upperBound = upperBound + 1 + pulseSpeed;
       lowerBound = lowerBound + 1 + pulseSpeed;
+    }
+
+    if (upperBound1 + 1 + pulseSpeed > 150){
+      lowerBound1 = 0;
+      upperBound1 = 10;
+    }else{
+      upperBound1 = upperBound1 + 1 + pulseSpeed;
+      lowerBound1 = lowerBound1 + 1 + pulseSpeed;
+    }
+
+    if (upperBound2 + 1 + pulseSpeed > 150){
+      lowerBound2 = 0;
+      upperBound2 = 10;
+    }else{
+      upperBound2 = upperBound2 + 1 + pulseSpeed;
+      lowerBound2 = lowerBound2 + 1 + pulseSpeed;
+    }
+    if (upperBound3 + 1 + pulseSpeed > 150){
+      lowerBound3 = 0;
+      upperBound3 = 10;
+    }else{
+      upperBound3 = upperBound3 + 1 + pulseSpeed;
+      lowerBound3 = lowerBound3 + 1 + pulseSpeed;
     }
     o_led.setData(o_ledBuffer);
   }
