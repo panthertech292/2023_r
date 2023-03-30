@@ -22,8 +22,10 @@ public final class Constants {
   public static class DriveConstants {
     //CAN Devices
     public static int kFrontLeftMotor = 2;
-    public static int kFrontRightMotor = 3;
+    public static int kMiddleLeftMotor = 22; //PLACE HOLDER
     public static int kBackLeftMotor = 4;
+    public static int kFrontRightMotor = 3;
+    public static int kMiddleRightMotor = 23;
     public static int kBackRightMotor = 5;
     public static int kPigeon2 = 6;
   }

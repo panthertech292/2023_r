@@ -21,8 +21,11 @@ import frc.robot.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
   //Motors
   private final CANSparkMax FrontLeftMotor;
-  private final CANSparkMax FrontRightMotor;
+  private final CANSparkMax MiddleLeftMotor;
   private final CANSparkMax BackLeftMotor;
+
+  private final CANSparkMax FrontRightMotor;
+  private final CANSparkMax MiddleRightMotor;
   private final CANSparkMax BackRightMotor;
 
   //Motor Control
@@ -48,17 +51,21 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     //Motors
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
-    FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
+    MiddleLeftMotor = new CANSparkMax(DriveConstants.kMiddleLeftMotor, MotorType.kBrushless);
     BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
+    FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
+    MiddleRightMotor = new CANSparkMax(DriveConstants.kMiddleRightMotor, MotorType.kBrushless);
     BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
     InitDriveMotors(FrontLeftMotor, true);
-    InitDriveMotors(FrontRightMotor, false);
+    InitDriveMotors(MiddleLeftMotor, true);
     InitDriveMotors(BackLeftMotor, true);
+    InitDriveMotors(FrontRightMotor, false);
+    InitDriveMotors(MiddleRightMotor, false);
     InitDriveMotors(BackRightMotor, false);
     
     //Motor Control
-    LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
-    RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
+    LeftSide = new MotorControllerGroup(FrontLeftMotor, MiddleLeftMotor, BackLeftMotor);
+    RightSide = new MotorControllerGroup(FrontRightMotor, MiddleRightMotor, BackRightMotor);
     DifDrive = new DifferentialDrive(LeftSide, RightSide);
     
     //IMU
