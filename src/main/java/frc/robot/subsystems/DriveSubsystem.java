@@ -62,6 +62,7 @@ public class DriveSubsystem extends SubsystemBase {
     InitDriveMotors(FrontRightMotor, false);
     InitDriveMotors(MiddleRightMotor, false);
     InitDriveMotors(BackRightMotor, false);
+    setRampRate(0);
     
     //Motor Control
     LeftSide = new MotorControllerGroup(FrontLeftMotor, MiddleLeftMotor, BackLeftMotor);
@@ -76,10 +77,10 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
     BackLeftMotorEncoder = BackLeftMotor.getEncoder();
     BackRightMotorEncoder = BackRightMotor.getEncoder();
-    FrontLeftMotorEncoder.setPositionConversionFactor(2.4); //2.3 //Maybe 1.6?
-    FrontRightMotorEncoder.setPositionConversionFactor(2.4);
-    BackLeftMotorEncoder.setPositionConversionFactor(2.4);
-    BackRightMotorEncoder.setPositionConversionFactor(2.4);
+    FrontLeftMotorEncoder.setPositionConversionFactor(2.7); //2.4
+    FrontRightMotorEncoder.setPositionConversionFactor(2.7);
+    BackLeftMotorEncoder.setPositionConversionFactor(2.7);
+    BackRightMotorEncoder.setPositionConversionFactor(2.7);
     zeroLeftMotorEncoder();
     zeroRightMotorEncoder();
 
@@ -99,11 +100,24 @@ public class DriveSubsystem extends SubsystemBase {
     motor.setInverted(inverted);
     motor.burnFlash();
   }
+  //Pigeon 2
+  public void resetPigeon(){
+    Pigeon2.reset();
+  }
   public double getPitch(){
     return Pigeon2.getRoll();
   }
+  public double getHeading(){
+    return Pigeon2.getAngle();
+  }
   public double getLeftMotorEncoderPosition(){
     return FrontLeftMotorEncoder.getPosition();
+  }
+  public double getLeftMotorEncoderVelocity(){
+    return FrontLeftMotorEncoder.getVelocity();
+  }
+  public double getRightMotorEncoderVelocity(){
+    return FrontRightMotorEncoder.getVelocity();
   }
   public double getRightMotorEncoderPosition(){
     return -(FrontRightMotorEncoder.getPosition());
@@ -115,6 +129,14 @@ public class DriveSubsystem extends SubsystemBase {
   public void zeroRightMotorEncoder(){
     FrontRightMotorEncoder.setPosition(0);
     BackRightMotorEncoder.setPosition(0);
+  }
+  public void setRampRate(double timeToFull){
+    FrontLeftMotor.setOpenLoopRampRate(timeToFull);
+    MiddleLeftMotor.setOpenLoopRampRate(timeToFull);
+    BackLeftMotor.setOpenLoopRampRate(timeToFull);
+    FrontRightMotor.setOpenLoopRampRate(timeToFull);
+    MiddleRightMotor.setOpenLoopRampRate(timeToFull);
+    BackRightMotor.setOpenLoopRampRate(timeToFull);
   }
   //Limelight
   public double getVisionAngle(){
@@ -151,5 +173,6 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //System.out.println("ENCODER IS: " + getRightMotorEncoderPosition());
   }
 }

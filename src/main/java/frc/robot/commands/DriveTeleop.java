@@ -26,6 +26,7 @@ public class DriveTeleop extends CommandBase {
   @Override
   public void initialize() {
     DriveSub.setLimeLightDriverCam();
+    DriveSub.setRampRate(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -33,12 +34,22 @@ public class DriveTeleop extends CommandBase {
   public void execute() {
     DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.83, (RobotContainer.getDriverRightSpeedY()));
 
+    if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
+      DriveSub.setRampRate(0);
+    } else if (DriveSub.getRightMotorEncoderVelocity() > 0 && RobotContainer.getDriverRightSpeedY() > 0){
+      DriveSub.setRampRate(0.75);
+    }else if(DriveSub.getRightMotorEncoderVelocity() < 0 && RobotContainer.getDriverRightSpeedY() < 0){
+      DriveSub.setRampRate(0.75);
+    }else{
+      DriveSub.setRampRate(0);
+    }
+
+    
+
 
     if (DriverStation.getAlliance() == Alliance.Red){
-      //LEDSub.setColorChase(0, 120, 0); //Set colors to red 
       LEDSub.setColorChase(0, 120, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }else{
-      //LEDSub.setColorChase(120, 0, 0); //Set colors to blue
       LEDSub.setColorChase(120, 0, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }
     //LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
@@ -49,6 +60,7 @@ public class DriveTeleop extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     DriveSub.tankDrive(0, 0);
+    DriveSub.setRampRate(0);
   }
 
   // Returns true when the command should end.

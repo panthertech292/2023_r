@@ -67,6 +67,9 @@ public class RobotContainer {
   private final Command z_VisionScore = new VisionScore(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
   private final Command z_VisionScoreCube = new VisionScoreCube(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
 
+  //Gyro
+  private final Command z_GyroTurn = new GyroTurn(s_DriveSubsystem, 180, 0.005, 0.08);
+
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
   //Pickup Commands
@@ -110,6 +113,8 @@ public class RobotContainer {
     d_backButton.whileTrue(z_VisionScore);
     final JoystickButton d_leftStick = new JoystickButton(io_drivercontroller, Button.kLeftStick.value);
     d_leftStick.whileTrue(z_VisionScoreCube);
+    final JoystickButton d_rightStick = new JoystickButton(io_drivercontroller, Button.kRightStick.value);
+    d_rightStick.whileTrue(z_GyroTurn);
     
 
     //Operator Buttons

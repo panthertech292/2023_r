@@ -41,7 +41,7 @@ public class DualArmManual extends CommandBase {
     }else if (ArmSub.getUpArmEncoder() < 0.23 && (ArmSub.getArmCylinder() == Value.kForward)){ //Arm check if the arm is extended
       ArmSub.setUpArmMotorSpeed(0.20);
     }else{
-      ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY());
+      ArmSub.setUpArmMotorSpeed(RobotContainer.getOperRightSpeedY()*0.5);
     }
     
     
