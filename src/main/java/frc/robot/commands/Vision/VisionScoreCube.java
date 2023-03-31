@@ -25,7 +25,7 @@ public class VisionScoreCube extends SequentialCommandGroup {
       //wip
       new VisionSetPipeline(s_DriveSubsystem, 2),
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0),
-      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, 0.030),
+      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, 0.009),
       new VisionDistanceAlign(s_DriveSubsystem, 0.15, 0.03, -13),
 
       //We are now at the pole

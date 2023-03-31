@@ -33,7 +33,7 @@ public class GyroTurn extends CommandBase {
   @Override
   public void execute() {
     v_error = ((v_headingTarget - DriveSub.getHeading())*v_p);
-    System.out.println("Error: " + v_error + " HEADING: " + DriveSub.getHeading());
+    
 
     if (Math.abs(v_error) < Math.abs(v_minSpeed)){
       if ((v_headingTarget - DriveSub.getHeading()) > 0){
@@ -42,7 +42,7 @@ public class GyroTurn extends CommandBase {
         v_error = -v_minSpeed;
       }
     }
-
+    System.out.println("Error: " + v_error + " HEADING: " + DriveSub.getHeading());
     DriveSub.tankDrive(-v_error, v_error);
 
     
@@ -58,7 +58,7 @@ public class GyroTurn extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return false;
-    return (Math.abs(v_headingTarget - DriveSub.getHeading()) < 0.1);
+    return false;
+    //return (Math.abs(v_headingTarget - DriveSub.getHeading()) < 0.1);
   }
 }

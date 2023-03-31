@@ -48,6 +48,7 @@ public class RobotContainer {
   private final Command z_BasicAuto = new AutoBasic(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
   private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
   private final Command z_AutoTraverseBalance = new AutoTraverseBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
+  private final Command z_AutoTwoScore = new AutoTwoScore(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
 
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
@@ -87,6 +88,8 @@ public class RobotContainer {
     o_AutoChooser.setDefaultOption("Basic Auto", z_BasicAuto);
     o_AutoChooser.addOption("Auto Balance", z_AutoBalance);
     o_AutoChooser.addOption("Auto Balance Traverse", z_AutoTraverseBalance);
+    o_AutoChooser.addOption("Auto Two Score", z_AutoTwoScore);
+    o_AutoChooser.addOption("Auto Dead", new DriveManual(s_DriveSubsystem, 0, 0));
     SmartDashboard.putData(o_AutoChooser);
   }
 
