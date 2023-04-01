@@ -24,12 +24,12 @@ public class VisionScore extends SequentialCommandGroup {
     addCommands(
       new VisionSetPipeline(s_DriveSubsystem, 0),
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0),
-      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, 0.030),
+      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, 0.006),
       new VisionDistanceAlign(s_DriveSubsystem, 0.15, 0.03, -8),
 
       //We are now at the pole
       new VisionSetPipeline(s_DriveSubsystem, 1),
-      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.09, 0.009),
+      new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.09, 0.004),
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 8, 0),
       new ClawOpen(s_PickupSubsystem)
     );

@@ -49,6 +49,7 @@ public class RobotContainer {
   private final Command z_AutoBalance = new AutoBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
   private final Command z_AutoTraverseBalance = new AutoTraverseBalance(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
   private final Command z_AutoTwoScore = new AutoTwoScore(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
+  private final Command z_AutoBasicTurn = new AutoBasicTurn(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem);
 
   //Arm Commands
   private final Command z_DualArmManual = new DualArmManual(s_ArmSubsystem);
@@ -60,7 +61,7 @@ public class RobotContainer {
   private final Command z_DualArmFloorSpot = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
   private final Command z_DualArmFloorSpotO = new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 6, 0.0);
   private final Command z_DualArmStowedSpot = new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0.0);
-  private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0);
+  private final Command z_ArmKick = new DualArmControl(s_ArmSubsystem, true, .4, 8 ,0.0);
 
   //Vision Commands
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, s_LEDSubsystem, 0.10, .010);
@@ -69,7 +70,7 @@ public class RobotContainer {
   private final Command z_VisionScoreCube = new VisionScoreCube(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem);
 
   //Gyro
-  private final Command z_GyroTurn = new GyroTurn(s_DriveSubsystem, 180, 0.005, 0.08);
+  //private final Command z_GyroTurn = new GyroTurn(s_DriveSubsystem, 180, 0.005, 0.08);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -86,6 +87,7 @@ public class RobotContainer {
 
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("Basic Auto", z_BasicAuto);
+    o_AutoChooser.addOption("Basic Auto with Turn", z_AutoBasicTurn);
     o_AutoChooser.addOption("Auto Balance", z_AutoBalance);
     o_AutoChooser.addOption("Auto Balance Traverse", z_AutoTraverseBalance);
     o_AutoChooser.addOption("Auto Two Score", z_AutoTwoScore);
@@ -116,8 +118,8 @@ public class RobotContainer {
     d_backButton.whileTrue(z_VisionScore);
     final JoystickButton d_leftStick = new JoystickButton(io_drivercontroller, Button.kLeftStick.value);
     d_leftStick.whileTrue(z_VisionScoreCube);
-    final JoystickButton d_rightStick = new JoystickButton(io_drivercontroller, Button.kRightStick.value);
-    d_rightStick.whileTrue(z_GyroTurn);
+    //final JoystickButton d_rightStick = new JoystickButton(io_drivercontroller, Button.kRightStick.value);
+    //d_rightStick.whileTrue(z_GyroTurn);
     
 
     //Operator Buttons

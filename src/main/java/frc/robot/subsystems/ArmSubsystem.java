@@ -29,7 +29,7 @@ public class ArmSubsystem extends SubsystemBase {
   public ArmSubsystem() {
     //Low Arm
     LowArmCylinder = new DoubleSolenoid(PneumaticsModuleType.REVPH, ArmConstants.kLowArmSolenoidExtendChannel, ArmConstants.kLowArmSolenoidRetractChannel);
-    LowArmCylinder.set(Value.kReverse);
+    //LowArmCylinder.set(Value.kReverse);
 
     //Up Arm Motor
     UpArmMotor = new CANSparkMax(ArmConstants.kUpArmMotor, MotorType.kBrushless);

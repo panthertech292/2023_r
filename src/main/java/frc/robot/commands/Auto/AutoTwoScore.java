@@ -27,19 +27,23 @@ public class AutoTwoScore extends SequentialCommandGroup {
       new DualArmControl(s_ArmSubsystem, true, ArmConstants.kScoreSpot, 11, 0).withTimeout(4),
       new ClawOpen(s_PickupSubsystem).withTimeout(0.5),
       new DriveToPositionEnd(s_DriveSubsystem, 0.10, -150, 0.003),
-      new GyroTurn(s_DriveSubsystem, 180, 0.003, 0.10).withTimeout(2),
-      new DriveToPositionEnd(s_DriveSubsystem, 0.10, 15, 0.002),
-      new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 11, 0).withTimeout(4),
-      new DriveToPositionEnd(s_DriveSubsystem, 0.10, 2, 0.002),
-      new ClawClose(s_PickupSubsystem).withTimeout(0.3),
-
-      //new DriveManual(s_DriveSubsystem, 0, 0).withTimeout(0.2),
-
-      new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0),
       new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0.0),
 
-      new GyroTurn(s_DriveSubsystem, 180, 0.003, 0.10).withTimeout(2),
-      new DriveToPositionEnd(s_DriveSubsystem, 0.10, 140, 0.002),
+      new GyroTurn(s_DriveSubsystem, 180, 0.005, 0.10),
+      new DriveToPositionEnd(s_DriveSubsystem, 0.10, 15, 0.002),
+      new DualArmControl(s_ArmSubsystem, true, ArmConstants.kFloorSpot, 11, 0),
+      new DriveToPositionEnd(s_DriveSubsystem, 0.10, 2, 0.002),
+      new DriveManual(s_DriveSubsystem, 0, 0).withTimeout(1),
+      new ClawClose(s_PickupSubsystem).withTimeout(0.2),
+
+      //
+
+      new DualArmControl(s_ArmSubsystem, true, .3, 8 ,0.0),
+      new DualArmControl(s_ArmSubsystem, false, ArmConstants.kStowedSpot, 4, 0.0).withTimeout(3),
+
+      
+      new DriveToPositionEnd(s_DriveSubsystem, 0.10, -140, 0.004),
+      new GyroTurn(s_DriveSubsystem, 180, 0.005, 0.10),
       new VisionScoreCube(s_DriveSubsystem, s_ArmSubsystem, s_PickupSubsystem, s_LEDSubsystem)
     );
   }
