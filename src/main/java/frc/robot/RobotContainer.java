@@ -162,6 +162,13 @@ public class RobotContainer {
   public static double getDriverRightSpeedX(){
     return deadZoneCheck(io_drivercontroller.getRightX(), OperatorConstants.kControllerDeadZone);
   }
+  public static double getDriveRightTrigger(){
+    return io_drivercontroller.getRightTriggerAxis();
+  }
+  public static double getDriveLeftTrigger(){
+    return io_drivercontroller.getLeftTriggerAxis();
+  }
+  
   public static double getOperRightSpeedY(){
     return deadZoneCheck(io_opercontroller.getRightY(), OperatorConstants.kControllerDeadZone);
   }

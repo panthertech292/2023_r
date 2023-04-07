@@ -14,10 +14,16 @@ import frc.robot.subsystems.LEDSubsystem;
 public class DriveTeleop extends CommandBase {
   private final DriveSubsystem DriveSub;
   private final LEDSubsystem LEDSub;
+  private double speedMod;
+  private double rampTime;
+  private double previousRampTime;
   /** Creates a new DriveTeleop. */
   public DriveTeleop(DriveSubsystem s_DriveSubsystem, LEDSubsystem s_LEDSubsystem) {
     DriveSub = s_DriveSubsystem;
     LEDSub = s_LEDSubsystem;
+    speedMod = 1;
+    rampTime = 0;
+    previousRampTime = 0;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);
   }
@@ -32,28 +38,48 @@ public class DriveTeleop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.81, (RobotContainer.getDriverRightSpeedY()));
+    speedMod = 1;
+    previousRampTime = rampTime;
+    if (RobotContainer.getDriveRightTrigger() > 0.50){
+      speedMod = 0.50;
+    }
+    if (RobotContainer.getDriveLeftTrigger() > 0.50){
+      speedMod = 0.80;
+    }
 
+    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.81, (RobotContainer.getDriverRightSpeedY()*speedMod));
+
+    /* OLD CODE. KEEPING HERE JUST IN CASE
     if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
       DriveSub.setRampRate(0);
     } else if (DriveSub.getRightMotorEncoderVelocity() > 0 && RobotContainer.getDriverRightSpeedY() > 0){
-      DriveSub.setRampRate(0.75);
+      DriveSub.setRampRate(0.65);
     }else if(DriveSub.getRightMotorEncoderVelocity() < 0 && RobotContainer.getDriverRightSpeedY() < 0){
-      DriveSub.setRampRate(0.75);
+      DriveSub.setRampRate(0.65);
     }else{
       DriveSub.setRampRate(0);
+    }*/
+
+    if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
+      rampTime = 0;
+    } else if (DriveSub.getRightMotorEncoderVelocity() > 0 && RobotContainer.getDriverRightSpeedY() > 0){
+      rampTime = 0.65;
+    }else if(DriveSub.getRightMotorEncoderVelocity() < 0 && RobotContainer.getDriverRightSpeedY() < 0){
+      rampTime = 0.65;
+    }else{
+      rampTime = 0;
     }
-
-    
-
+    //This should only change the ramp rate if a new one is given. Hopefully this helps with some loop overruns.
+    if (rampTime != previousRampTime){
+      DriveSub.setRampRate(rampTime);
+    }
+   
 
     if (DriverStation.getAlliance() == Alliance.Red){
       LEDSub.setColorChase(0, 120, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }else{
       LEDSub.setColorChase(120, 0, (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*2)));
     }
-    //LEDSub.rainbow(1 + (int) Math.round(Math.abs(RobotContainer.getDriverRightSpeedY()*10)));
-    
   }
 
   // Called once the command ends or is interrupted.
