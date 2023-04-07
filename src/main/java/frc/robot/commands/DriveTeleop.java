@@ -41,14 +41,14 @@ public class DriveTeleop extends CommandBase {
     speedMod = 1;
     previousRampTime = rampTime;
     if (RobotContainer.getDriveRightTrigger() > 0.50){
-      speedMod = 0.50;
+      speedMod = 0.55;
     }
     if (RobotContainer.getDriveLeftTrigger() > 0.50){
       speedMod = 0.80;
     }
 
-    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.81, (RobotContainer.getDriverRightSpeedY()*speedMod));
-
+    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.81*speedMod, (RobotContainer.getDriverRightSpeedY()*speedMod));
+    
     /* OLD CODE. KEEPING HERE JUST IN CASE
     if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
       DriveSub.setRampRate(0);
@@ -63,15 +63,16 @@ public class DriveTeleop extends CommandBase {
     if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
       rampTime = 0;
     } else if (DriveSub.getRightMotorEncoderVelocity() > 0 && RobotContainer.getDriverRightSpeedY() > 0){
-      rampTime = 0.65;
+      rampTime = 0.75;
     }else if(DriveSub.getRightMotorEncoderVelocity() < 0 && RobotContainer.getDriverRightSpeedY() < 0){
-      rampTime = 0.65;
+      rampTime = 0.75;
     }else{
       rampTime = 0;
     }
     //This should only change the ramp rate if a new one is given. Hopefully this helps with some loop overruns.
     if (rampTime != previousRampTime){
       DriveSub.setRampRate(rampTime);
+      //System.out.println(rampTime);
     }
    
 
