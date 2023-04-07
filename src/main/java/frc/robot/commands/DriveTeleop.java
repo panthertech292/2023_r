@@ -32,7 +32,7 @@ public class DriveTeleop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.83, (RobotContainer.getDriverRightSpeedY()));
+    DriveSub.arcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.81, (RobotContainer.getDriverRightSpeedY()));
 
     if(Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.15){
       DriveSub.setRampRate(0);

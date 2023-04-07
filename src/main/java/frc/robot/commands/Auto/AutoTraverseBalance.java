@@ -29,7 +29,7 @@ public class AutoTraverseBalance extends SequentialCommandGroup {
       new DriveToPositionEnd(s_DriveSubsystem, -0.25, (-125), 0.003),
       new DriveManual(s_DriveSubsystem,0,0).withTimeout(0.75),
       new DriveUntilPitch(s_DriveSubsystem, 0.27, 5),
-      new DriveToPosition(s_DriveSubsystem, 0.15, (54), 0.001) //This is where we park on the table
+      new DriveToPosition(s_DriveSubsystem, 0.15, (50), 0.001) //This is where we park on the table
     );
   }
 }

@@ -96,7 +96,7 @@ public class DriveSubsystem extends SubsystemBase {
   private void InitDriveMotors(CANSparkMax motor, boolean inverted){
     motor.restoreFactoryDefaults();
     motor.setIdleMode(IdleMode.kBrake);
-    motor.setSmartCurrentLimit(60);
+    motor.setSmartCurrentLimit(50);
     motor.setInverted(inverted);
     motor.burnFlash();
   }
